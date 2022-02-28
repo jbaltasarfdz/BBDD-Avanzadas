@@ -3,8 +3,8 @@ import pandas as pd
 import plotly.express as px
 
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc
+from dash import html
 from dash.dependencies import Input, Output
 
 conn = pyodbc.connect(r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=..\Datasets\DW1.accdb;')
@@ -14,8 +14,8 @@ fig=px.bar(df, x="AñoCondena", y="TOTAL")
 print(df)
 fig.show()
 
-df2 = pd.read_sql_query("SELECT Unidades, Genero FROM hechos;",conn) 
-fig2=px.pie(df2, values='Unidades', names='Genero', title= 'Condenas totales en hombres y mujeres del año 2013 al 2020')
+df2 = pd.read_sql_query("SELECT Edad, SUM(Unidades) as TOTAL FROM hechos GROUP BY Edad;",conn) 
+fig2=px.bar(df2, x="Edad", y="TOTAL")
 print(df2)
 fig2.show()
 
@@ -32,7 +32,7 @@ app.layout = html.Div([
                  for x in ['Genero', 'Nacionalidad', 'Edad', 'AñoCondena', 'CantidadDelitos']],
         clearable=False
     ),
-    html.P("Cantidad de delitos cometidos:"),
+    html.P("Numero de condenas:"),
     dcc.Dropdown(
         id='values', 
         value='Unidades', 
@@ -52,17 +52,3 @@ def generate_chart(names, values):
     return fig3
 
 app.run_server(debug=True)
-
-'''
-df3 = pd.read_sql_query("SELECT AñoCondena, SUM(Unidades) as TOTAL FROM hechos GROUP BY AñoCondena;",conn) 
-fig3=px.bar(df, x="AñoCondena", y="TOTAL")
-fig3.show()
-
-df = pd.read_sql_query("SELECT AñoCondena, SUM(Unidades) as TOTAL FROM hechos GROUP BY AñoCondena;",conn) 
-fig=px.bar(df, x="AñoCondena", y="TOTAL")
-fig.show()
-
-df = pd.read_sql_query("SELECT AñoCondena, SUM(Unidades) as TOTAL FROM hechos GROUP BY AñoCondena;",conn) 
-fig=px.bar(df, x="AñoCondena", y="TOTAL")
-fig.show()
-'''
