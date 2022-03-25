@@ -1,0 +1,43 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ystfeed">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="vespaadd">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="document">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:float" name="uri"/>
+                    <xs:element type="xs:string" name="subject"/>
+                    <xs:element type="xs:string" name="content"/>
+                    <xs:element type="xs:string" name="bestanswer"/>
+                    <xs:element name="nbestanswers">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="answer_item"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="cat"/>
+                    <xs:element type="xs:string" name="maincat"/>
+                    <xs:element type="xs:string" name="subcat"/>
+                    <xs:element type="xs:float" name="date"/>
+                    <xs:element type="xs:float" name="res_date"/>
+                    <xs:element type="xs:float" name="lastanswerts"/>
+                    <xs:element type="xs:string" name="qlang"/>
+                    <xs:element type="xs:string" name="qintl"/>
+                    <xs:element type="xs:string" name="language"/>
+                    <xs:element type="xs:string" name="id"/>
+                    <xs:element type="xs:string" name="best_id"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="type"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
